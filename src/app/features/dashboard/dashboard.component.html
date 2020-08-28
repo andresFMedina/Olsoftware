@@ -61,7 +61,7 @@
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef> Estado </th>
               <td class="w-150" mat-cell *matCellDef="let user">
-                {{user.valorUnitario}}
+                {{user.status}}
               </td>
             </ng-container>
 
@@ -84,12 +84,12 @@
             <!--Columna Accion-->
             <ng-container matColumnDef="action">
               <th class="w-150 th-center" mat-header-cell *matHeaderCellDef> Acción </th>
-              <td class="w-150 th-center" mat-cell *matCellDef="let row; let index = index">
-                <button mat-icon-button (click)="deleteRow(index, row)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-                <button mat-icon-button (click)="deleteRow(index, row)">
+              <td class="w-150 th-center" mat-cell *matCellDef="let user; let index = index">
+                <button mat-icon-button (click)="openDialogCreateUser(user)">
                   <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteRow(user)">
+                  <mat-icon>delete</mat-icon>
                 </button>
               </td>
             </ng-container>

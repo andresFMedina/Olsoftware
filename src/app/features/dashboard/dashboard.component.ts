@@ -44,7 +44,6 @@ export class DashboardComponent implements OnInit {
       data => {
         this.users = data.map(e => {
           return {
-            uid: e.payload.doc.id,
             ...e.payload.doc.data()
           } as User;
         });
@@ -56,13 +55,15 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  deleteRow(index, row) {
-
+  deleteRow(user?: User) {
+    console.log(user);
+    this.userService.deleteUser(user.uid);
   }
 
-  openDialogCreateUser() {
+  openDialogCreateUser(user?: User) {
     const dialogRef = this.dialog.open(CreateUserComponent, {
-      width: '600px'
+      width: '600px',
+      data: user
     });
   }
 
