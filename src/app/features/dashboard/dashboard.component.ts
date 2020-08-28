@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { User } from 'src/app/core/models/user';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateUserComponent } from '../create-user/create-user.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +21,6 @@ export class DashboardComponent {
 
   users: User[] = [
     {
-      id: 1,
       name: 'Andrés Felipe',
       lastname: 'Medina Tascón',
       identification: '1658992569',
@@ -47,7 +46,7 @@ export class DashboardComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog
-    ) { }
+  ) { }
 
   deleteRow(index, row) {
 
