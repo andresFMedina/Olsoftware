@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { User } from 'src/app/core/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -19,18 +20,7 @@ export class DashboardComponent {
       shareReplay()
     );
 
-  users: User[] = [
-    {
-      name: 'Andrés Felipe',
-      lastname: 'Medina Tascón',
-      identification: '1658992569',
-      role: 2,
-      status: 'A',
-      phone: '3502148698',
-      email: 'andresfelipe.medinat@gmail.com',
-
-    }
-  ];
+  users: User[];
 
   displayedColumns = [
     'name',
@@ -45,8 +35,26 @@ export class DashboardComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private userService: UserService
   ) { }
+
+  ngOnInit() {
+    this.userService.getUsers().subscribe(
+      data => {
+        this.users = data.map(e => {
+          return {
+            uid: e.payload.doc.id,
+            ...e.payload.doc.data()
+          } as User;
+        });
+        console.log(this.users);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
   deleteRow(index, row) {
 

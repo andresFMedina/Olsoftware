@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/core/models/user';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-create-user',
@@ -10,7 +11,10 @@ import { User } from 'src/app/core/models/user';
 export class CreateUserComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -25,7 +29,7 @@ export class CreateUserComponent implements OnInit {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     const user: User = {
       name: this.form.get('name').value,
       lastname: this.form.get('lastname').value,
@@ -36,6 +40,7 @@ export class CreateUserComponent implements OnInit {
       email: this.form.get('email').value,
     };
     console.log(user);
+    this.userService.createUser(user);
   }
 
 }
