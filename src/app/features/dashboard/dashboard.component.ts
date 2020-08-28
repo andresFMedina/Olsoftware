@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { User } from 'src/app/core/models/user';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +26,7 @@ export class DashboardComponent {
       lastname: 'Medina Tascón',
       identification: '1658992569',
       role: 2,
-      stauts: 'A',
+      status: 'A',
       phone: '3502148698',
       email: 'andresfelipe.medinat@gmail.com',
 
@@ -42,10 +44,19 @@ export class DashboardComponent {
     'action',
   ];
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog
+    ) { }
 
   deleteRow(index, row) {
 
+  }
+
+  openDialogCreateUser() {
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '600px'
+    });
   }
 
 }

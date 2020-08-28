@@ -20,6 +20,8 @@
         <mat-card-header>
           <mat-card-title>
             Usuarios existentes
+
+            <button mat-raised-button> Crear</button>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
@@ -27,7 +29,7 @@
             <!--Columna nombres-->
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef> Nombres </th>
-              <td class="w-100" mat-cell *matCellDef="let user">
+              <td class="w-150" mat-cell *matCellDef="let user">
                 {{user.name}}
               </td>
             </ng-container>
@@ -35,7 +37,7 @@
             <!--Columna Apellidos-->
             <ng-container matColumnDef="lastname">
               <th mat-header-cell *matHeaderCellDef> Apellidos </th>
-              <td class="w-100" mat-cell *matCellDef="let user">
+              <td class="w-150" mat-cell *matCellDef="let user">
                 {{user.lastname}}
               </td>
             </ng-container>
@@ -43,7 +45,7 @@
             <!--Columna identificacion-->
             <ng-container matColumnDef="identification">
               <th mat-header-cell *matHeaderCellDef> Identificación (C.C) </th>
-              <td class="w-100" mat-cell *matCellDef="let user">
+              <td class="w-150" mat-cell *matCellDef="let user">
                 {{user.identification}}
               </td>
             </ng-container>
@@ -58,7 +60,7 @@
             <!--Columna Estado-->
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef> Estado </th>
-              <td class="w-100" mat-cell *matCellDef="let user">
+              <td class="w-150" mat-cell *matCellDef="let user">
                 {{user.valorUnitario}}
               </td>
             </ng-container>
@@ -66,23 +68,23 @@
             <!--Columna Telefono-->
             <ng-container matColumnDef="phone">
               <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-              <td class="w-100" mat-cell *matCellDef="let user">
+              <td class="w-150" mat-cell *matCellDef="let user">
                 {{user.phone}}
               </td>
             </ng-container>
 
             <!--Columna Correo Electronico-->
             <ng-container matColumnDef="email">
-              <th class="w-100" mat-header-cell *matHeaderCellDef> Correo electrónico </th>
-              <td class="w-100" mat-cell *matCellDef="let user">
+              <th class="w-150" mat-header-cell *matHeaderCellDef> Correo electrónico </th>
+              <td class="w-150" mat-cell *matCellDef="let user">
                 {{(user.email)}}
               </td>
             </ng-container>
 
             <!--Columna Accion-->
             <ng-container matColumnDef="action">
-              <th class="w-100 th-center" mat-header-cell *matHeaderCellDef> Acción </th>
-              <td class="w-100 th-center" mat-cell *matCellDef="let row; let index = index">
+              <th class="w-150 th-center" mat-header-cell *matHeaderCellDef> Acción </th>
+              <td class="w-150 th-center" mat-cell *matCellDef="let row; let index = index">
                 <button mat-icon-button (click)="deleteRow(index, row)">
                   <mat-icon>delete</mat-icon>
                 </button>
