@@ -1,0 +1,18 @@
+.container
+{
+  background-image: url("src/assets/images/plaza-del-teatro-municipal__MG_4179_1200px.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.login-card{
+  max-width: 400px;
+  margin-top: 20%;
+  margin-left: 70%;
+  border-radius: 2px;
+}
+
+

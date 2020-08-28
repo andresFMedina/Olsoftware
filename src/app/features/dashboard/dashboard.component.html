@@ -1,0 +1,107 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>OlSoftware</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-user href="#">Roles</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="text-color">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Prueba Frontend</span>
+    </mat-toolbar>
+
+    <div class="container">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Usuarios existentes
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]=users class="mat-elevation-z8 table-responsive table-users">
+            <!--Columna nombres-->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Nombres </th>
+              <td class="w-100" mat-cell *matCellDef="let user">
+                {{user.name}}
+              </td>
+            </ng-container>
+
+            <!--Columna Apellidos-->
+            <ng-container matColumnDef="lastname">
+              <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+              <td class="w-100" mat-cell *matCellDef="let user">
+                {{user.lastname}}
+              </td>
+            </ng-container>
+
+            <!--Columna identificacion-->
+            <ng-container matColumnDef="identification">
+              <th mat-header-cell *matHeaderCellDef> Identificación (C.C) </th>
+              <td class="w-100" mat-cell *matCellDef="let user">
+                {{user.identification}}
+              </td>
+            </ng-container>
+            <!--Columna Rol asociado-->
+            <ng-container matColumnDef="role">
+              <th mat-header-cell *matHeaderCellDef> Rol asociado </th>
+              <td class="w-75" mat-cell *matCellDef="let user">
+                {{user.role}}
+              </td>
+            </ng-container>
+
+            <!--Columna Estado-->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Estado </th>
+              <td class="w-100" mat-cell *matCellDef="let user">
+                {{user.valorUnitario}}
+              </td>
+            </ng-container>
+
+            <!--Columna Telefono-->
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+              <td class="w-100" mat-cell *matCellDef="let user">
+                {{user.phone}}
+              </td>
+            </ng-container>
+
+            <!--Columna Correo Electronico-->
+            <ng-container matColumnDef="email">
+              <th class="w-100" mat-header-cell *matHeaderCellDef> Correo electrónico </th>
+              <td class="w-100" mat-cell *matCellDef="let user">
+                {{(user.email)}}
+              </td>
+            </ng-container>
+
+            <!--Columna Accion-->
+            <ng-container matColumnDef="action">
+              <th class="w-100 th-center" mat-header-cell *matHeaderCellDef> Acción </th>
+              <td class="w-100 th-center" mat-cell *matCellDef="let row; let index = index">
+                <button mat-icon-button (click)="deleteRow(index, row)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteRow(index, row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef=displayedColumns></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
