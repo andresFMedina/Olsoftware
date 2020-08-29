@@ -28,7 +28,7 @@
   width: 100%;
 }
  table{
-   width: 70%;
+   width: 100%;
  }
 
 .th-center{
@@ -46,6 +46,35 @@
 }
 
 .w-150{
-  width: 150px;
+  width: 180px;
 }
 
+.title{
+  width: 100%;
+  color:#3654b7;
+  margin-bottom: 20px;
+
+}
+
+.button-create {
+  float: right;
+  background-color: #3654b7;
+  color: white;
+  vertical-align: middle;
+}
+
+.card-users {
+  width: 80%;
+}
+
+.current-user{
+  margin-left: 50%;
+}
+
+.logout{
+  float: right;
+}
+
+.users-icon{
+  vertical-align: middle;
+}

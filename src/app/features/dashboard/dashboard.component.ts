@@ -6,6 +6,8 @@ import { User } from 'src/app/core/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { UserService } from 'src/app/core/services/user.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +23,7 @@ export class DashboardComponent implements OnInit {
     );
 
   users: User[];
+  currentUser: User;
 
   displayedColumns = [
     'name',
@@ -36,8 +39,19 @@ export class DashboardComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    private authService: AuthenticationService,
+    private router: Router
+  ) {
+    this.authService.getCurrentUser().subscribe(firebaseUser => {
+      const uid = firebaseUser.uid;
+      userService.getUserByUid(uid).subscribe(
+        doc => {
+          this.currentUser = doc.payload.data();
+        }
+      );
+    });
+  }
 
   ngOnInit() {
     this.userService.getUsers().subscribe(
@@ -56,7 +70,6 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteRow(user?: User) {
-    console.log(user);
     this.userService.deleteUser(user.uid);
   }
 
@@ -65,6 +78,12 @@ export class DashboardComponent implements OnInit {
       width: '600px',
       data: user
     });
+  }
+
+  logout() {
+    this.authService.logout().then(
+      _ => this.router.navigate(['/login'])
+    );
   }
 
 }

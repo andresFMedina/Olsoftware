@@ -14,11 +14,12 @@ export class UserService {
   }
 
   getUserByUid(uid: string) {
-    return this.firestore.collection('user').doc(uid).snapshotChanges();
+    return this.firestore.collection<User>('user').doc<User>(uid).snapshotChanges();
   }
 
-  createUser(user: User) {
-    return this.firestore.collection<User>('user').add(user);
+  createUser(user: User, uid: string) {
+    user.uid = uid;
+    return this.firestore.collection<User>('user').doc<User>(uid).set(user);
   }
 
   updateUser(user: User, uid: string) {
