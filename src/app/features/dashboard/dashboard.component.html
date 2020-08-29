@@ -1,9 +1,14 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar class="mat-toolbar">OlSoftware</mat-toolbar>
+    <mat-toolbar class="mat-toolbar-sidenav">OSoftware</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-user href="#">Roles</a>
+      <a mat-list-item class="link" href="#">Programación</a>
+      <a mat-list-item class="link" href="#">Gestión de operaciones</a>
+      <a mat-list-item class="link" href="#">Perfiles</a>
+      <a mat-list-item class="link-active" routerLink="active" href="#">Roles</a>
+      <a mat-list-item class="link" href="#">Usuario</a>
+      <a mat-list-item class="link" href="#">Reportes</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,102 +25,180 @@
         <span>{{currentUser.name + ' ' + currentUser.lastname}}</span>
       </div>
 
-      <button class="logout" mat-icon-button (click)="logout()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <button class="logout" mat-icon-button (click)="logout()" class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon">
         <mat-icon>exit_to_app</mat-icon>
       </button>
     </mat-toolbar>
 
     <div class="container">
-      <div class="card-users">
-        <mat-card>
-          <mat-card-header>
-            <div mat-card-avatar class="title">
-              <mat-card-title>
-                <mat-icon class="users-icon">group</mat-icon>
-                Usuarios existentes
-                <button mat-raised-button class="button-create" (click)="openDialogCreateUser()"> Crear</button>
-              </mat-card-title>
+      <mat-grid-list cols="4" rowHeigth="500px">
+        <mat-grid-tile [colspan]="3" [rowspan]="2">
+          <div class="card-users">
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar class="title">
+                  <mat-card-title>
+                    <mat-icon class="users-icon">group</mat-icon>
+                    Usuarios existentes
+                    <button mat-raised-button class="button-create" (click)="openDialogCreateUser()"> Crear</button>
+                  </mat-card-title>
 
-            </div>
-          </mat-card-header>
-          <mat-card-content *ngIf="users">
-            <table mat-table [dataSource]=users class="mat-elevation-z8 table-responsive table-users">
-              <!--Columna nombres-->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Nombres </th>
-                <td class="w-150" mat-cell *matCellDef="let user">
-                  {{user.name}}
-                </td>
-              </ng-container>
+                </div>
+              </mat-card-header>
+              <mat-card-content *ngIf="users">
+                <table mat-table [dataSource]=users class="mat-elevation-z8 table-responsive table-users">
+                  <!--Columna nombres-->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Nombres </th>
+                    <td class="w-150" mat-cell *matCellDef="let user">
+                      {{user.name}}
+                    </td>
+                  </ng-container>
 
-              <!--Columna Apellidos-->
-              <ng-container matColumnDef="lastname">
-                <th mat-header-cell *matHeaderCellDef> Apellidos </th>
-                <td class="w-150" mat-cell *matCellDef="let user">
-                  {{user.lastname}}
-                </td>
-              </ng-container>
+                  <!--Columna Apellidos-->
+                  <ng-container matColumnDef="lastname">
+                    <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+                    <td class="w-150" mat-cell *matCellDef="let user">
+                      {{user.lastname}}
+                    </td>
+                  </ng-container>
 
-              <!--Columna identificacion-->
-              <ng-container matColumnDef="identification">
-                <th mat-header-cell *matHeaderCellDef> Identificación (C.C) </th>
-                <td class="w-150" mat-cell *matCellDef="let user">
-                  {{user.identification}}
-                </td>
-              </ng-container>
-              <!--Columna Rol asociado-->
-              <ng-container matColumnDef="role">
-                <th mat-header-cell *matHeaderCellDef> Rol asociado </th>
-                <td class="w-75" mat-cell *matCellDef="let user">
-                  {{user.role}}
-                </td>
-              </ng-container>
+                  <!--Columna identificacion-->
+                  <ng-container matColumnDef="identification">
+                    <th mat-header-cell *matHeaderCellDef> Identificación (C.C) </th>
+                    <td class="w-150" mat-cell *matCellDef="let user">
+                      {{user.identification}}
+                    </td>
+                  </ng-container>
+                  <!--Columna Rol asociado-->
+                  <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Rol asociado </th>
+                    <td class="w-150" mat-cell *matCellDef="let user">
+                      {{user.role | role}}
+                    </td>
+                  </ng-container>
 
-              <!--Columna Estado-->
-              <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef> Estado </th>
-                <td class="w-150" mat-cell *matCellDef="let user">
-                  {{user.status}}
-                </td>
-              </ng-container>
+                  <!--Columna Estado-->
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td class="w-150" mat-cell *matCellDef="let user">
+                      {{user.status| status}}
+                    </td>
+                  </ng-container>
 
-              <!--Columna Telefono-->
-              <ng-container matColumnDef="phone">
-                <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-                <td class="w-150" mat-cell *matCellDef="let user">
-                  {{user.phone}}
-                </td>
-              </ng-container>
+                  <!--Columna Telefono-->
+                  <ng-container matColumnDef="phone">
+                    <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                    <td class="w-150" mat-cell *matCellDef="let user">
+                      {{user.phone}}
+                    </td>
+                  </ng-container>
 
-              <!--Columna Correo Electronico-->
-              <ng-container matColumnDef="email">
-                <th class="w-150" mat-header-cell *matHeaderCellDef> Correo electrónico </th>
-                <td class="w-150" mat-cell *matCellDef="let user">
-                  {{(user.email)}}
-                </td>
-              </ng-container>
+                  <!--Columna Correo Electronico-->
+                  <ng-container matColumnDef="email">
+                    <th class="w-75" mat-header-cell *matHeaderCellDef> Correo electrónico </th>
+                    <td class="w-75" mat-cell *matCellDef="let user">
+                      {{(user.email)}}
+                    </td>
+                  </ng-container>
 
-              <!--Columna Accion-->
-              <ng-container matColumnDef="action">
-                <th class="th-center" mat-header-cell *matHeaderCellDef> Acción </th>
-                <td class="th-center" mat-cell *matCellDef="let user; let index = index">
-                  <button mat-icon-button (click)="openDialogCreateUser(user)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button mat-icon-button (click)="deleteRow(user)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
+                  <!--Columna Accion-->
+                  <ng-container matColumnDef="action">
+                    <th class="th-center" mat-header-cell *matHeaderCellDef> Acción </th>
+                    <td class="th-center w-150" mat-cell *matCellDef="let user; let index = index">
+                      <button mat-icon-button (click)="openDialogCreateUser(user)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-icon-button (click)="deleteRow(user)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
 
 
-              <tr mat-header-row *matHeaderRowDef=displayedColumns></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            <mat-paginator showFirstLastButtons></mat-paginator>
-          </mat-card-content>
-        </mat-card>
-      </div>
+                  <tr mat-header-row *matHeaderRowDef=displayedColumns></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator showFirstLastButtons></mat-paginator>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="2">
+          <div class="filters">
+            <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+              <mat-card class="create-user-card">
+                <mat-card-header>
+                  <div mat-card-avatar class="title">
+                    <mat-card-title>
+                      <mat-icon class="users-icon">person_search</mat-icon>
+                      Filtrar búsqueda
+                    </mat-card-title>
+
+                  </div>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <input matInput placeholder="Nombres" formControlName="name">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <input matInput placeholder="Apellidos" formControlName="lastname">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <input matInput placeholder="Identificación" formControlName="identification">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <input matInput placeholder="Rol asociado" formControlName="role">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <input matInput placeholder="Estado" formControlName="status">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <input matInput placeholder="Teléfono" formControlName="phone">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <input matInput type="email" placeholder="Correo Electrónico" formControlName="email">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Filtrar</button>
+                </mat-card-actions>
+              </mat-card>
+            </form>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
     </div>
 
   </mat-sidenav-content>

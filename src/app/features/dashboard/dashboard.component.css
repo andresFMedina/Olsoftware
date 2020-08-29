@@ -19,8 +19,16 @@
   z-index: 1;
 }
 
-.mat-toolbar{
-  background-color: white;
+.mat-toolbar-sidenav{
+  color: white;
+}
+
+.link {
+  color: white;
+}
+
+.link-active {
+  background: #3654b7;
 }
 
 .container {
@@ -64,16 +72,22 @@
 }
 
 .card-users {
-  width: 80%;
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+}
+
+.filters {
+  width: 100%;
+
+  margin: 0;
 }
 
 .current-user{
+  float: right;
   margin-left: 50%;
 }
 
-.logout{
-  float: right;
-}
 
 .users-icon{
   vertical-align: middle;

@@ -8,6 +8,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { UserService } from 'src/app/core/services/user.service';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,12 +37,15 @@ export class DashboardComponent implements OnInit {
     'action',
   ];
 
+  form: FormGroup;
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
     private userService: UserService,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private formBuilder:FormBuilder
   ) {
     this.authService.getCurrentUser().subscribe(firebaseUser => {
       const uid = firebaseUser.uid;
@@ -67,6 +71,15 @@ export class DashboardComponent implements OnInit {
         console.log(error);
       }
     );
+    this.form = this.formBuilder.group({
+      name: null ,
+      lastname: null,
+      identification: null,
+      role: null,
+      status: null,
+      phone: null,
+      email: null
+    });
   }
 
   deleteRow(user?: User) {
@@ -84,6 +97,10 @@ export class DashboardComponent implements OnInit {
     this.authService.logout().then(
       _ => this.router.navigate(['/login'])
     );
+  }
+
+  onSubmit(){
+
   }
 
 }
