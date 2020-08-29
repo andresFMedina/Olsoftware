@@ -15,4 +15,13 @@
   border-radius: 2px;
 }
 
+.login-title {
+  color: #3654b7;
+}
+
+.button-login{
+  background-color: #3654b7;
+  color: white;
+}
+
 

@@ -23,11 +23,10 @@ export class UserService {
   }
 
   updateUser(user: User, uid: string) {
-    delete user.uid;
-    return this.firestore.doc<User>('user/' + uid).update(user);
+    return this.firestore.collection<User>('user').doc<User>(uid).set(user);
   }
 
-  deleteUser(uid: string){
+  deleteUser(uid: string) {
     return this.firestore.collection('user').doc(uid).delete();
   }
 }
